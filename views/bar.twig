@@ -1,0 +1,50 @@
+{% extends 'home.twig' %}
+
+    {% block links %}
+    <a class="btn btn-primary" href="{{ path_for('list') }}">List</a></button>
+    {% endblock %}
+
+    {% block content %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js" crossorigin="anonymous"></script>
+    <h3 class="display-6">Bar chart of average monthly peak flow readings</h3>
+    <canvas id="myChart" width="400" height="400"></canvas>
+
+    {% if results|length > 0 %}
+    <script>
+    var ctx = document.getElementById("myChart");
+    var scatterChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        datasets: [{
+          data: [ 
+          {% for i in 1..12 %}
+            {{ results['%02d'|format(i)] }}, 
+          {% endfor %}          
+          ],
+          backgroundColor: 'rgb(255, 0, 0)',
+        }],
+      },
+      options: {
+        legend: {
+          display: false
+        },
+        scales: {
+          yAxes: [{
+            scaleLabel: {
+              display: 'true',
+              labelString: 'Average PF (L/min)'
+            },
+            ticks: {
+                suggestedMin: 200,
+                suggestedMax: 700
+            }                  
+          }],       
+        }
+      }
+    });    
+    </script>    
+    {% else %}
+    No data found.
+    {% endif %}
+    {% endblock %}

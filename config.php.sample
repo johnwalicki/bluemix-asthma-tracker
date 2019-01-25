@@ -1,0 +1,16 @@
+<?php
+// config.php
+$config = [
+  'settings' => [
+    'displayErrorDetails' => true,
+    'db' => [
+      'uri' => 'DB-URI',
+      'name' => 'DB-NAME'
+    ],
+    'twc' => [
+      'uri' => 'TWC-URI',
+      'latitude' => 'LAT',
+      'longitude' => 'LONG'
+    ]
+  ]
+];

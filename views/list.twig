@@ -1,0 +1,45 @@
+{% extends 'home.twig' %}
+
+    {% block links %}
+    <a class="btn btn-primary" href="{{ path_for('save') }}">Add</a></button>
+    {% endblock %}
+
+    {% block content %}
+    <h3 class="display-6">List of peak flow readings
+      <span class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="{{ path_for('scatter', {'type':'temperature'}) }}">View temperature scatter chart</a>
+          <a class="dropdown-item" href="{{ path_for('scatter', {'type':'humidity'}) }}">View humidity scatter chart</a>
+          <a class="dropdown-item" href="{{ path_for('bar') }}">View monthly averages bar chart</a>
+        </div>
+      </span>
+    </h3>
+    {% if results|length > 0 %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Date/time</th>
+          <th scope="col">Peak flow</th>
+          <th scope="col">Temperature</th>
+          <th scope="col">Humidity</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for result in results %}
+        <tr>
+          <td>{{ result.doc.ts|date("d M Y H:i") }}</td>
+          <td>{{ result.doc.value }} L/min</td>
+          <td>{{ result.doc.temp }} &deg;C</td>
+          <td>{{ result.doc.rh }}%</td>
+          <td><a href="{{ path_for('delete', {'id':result.doc._id, 'rev':result.doc._rev}) }}" class="btn btn-success">Delete</a></td>          
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    Attribution: This application uses data from the Weather Company Data service on IBM Cloud. All data, logos and trademarks are copyright their respective owners.
+    {% else %}
+    No data found.
+    {% endif %}
+    {% endblock %}

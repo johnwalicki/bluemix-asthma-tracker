@@ -1,0 +1,66 @@
+{% extends 'home.twig' %}
+
+    {% block links %}
+    <a class="btn btn-primary" href="{{ path_for('list') }}">List</a></button>
+    {% endblock %}
+
+    {% block content %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js" crossorigin="anonymous"></script>
+    <h3 class="display-6">Scatter chart of peak flow readings</h3>
+    <canvas id="myChart" width="400" height="400"></canvas>
+
+    {% if results|length > 0 %}
+    <script>
+    var ctx = document.getElementById("myChart");
+    var scatterChart = new Chart(ctx, {
+      type: 'scatter',
+      data: {
+        datasets: [{
+          pointBackgroundColor: 'rgb(255, 0, 0)',
+          data: [
+          {% for result in results %}
+          {
+              x: {{ result.doc.value }},
+              y: {{ attribute(result.doc, metric[0]) }}
+          }, 
+          {% endfor %}
+          ]
+        }]
+      },
+      options: {
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            scaleLabel: {
+              display: 'true',
+              labelString: 'PF (L/min)'
+            },
+            type: 'linear',
+            position: 'bottom',
+            ticks: {
+                suggestedMin: 100,
+                suggestedMax: 700
+            }                  
+          }],
+          yAxes: [{
+            scaleLabel: {
+              display: 'true',
+              labelString: '{{ metric[1] }}'
+            },
+            type: 'linear',
+            position: 'left',
+            ticks: {
+                suggestedMin: 20,
+                suggestedMax: 45
+            }                  
+          }],       
+        }
+      }
+    });    
+    </script>    
+    {% else %}
+    No data found.
+    {% endif %}
+    {% endblock %}

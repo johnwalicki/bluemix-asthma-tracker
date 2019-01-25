@@ -1,0 +1,5 @@
+manifest.yml
+config.php
+vendor/*
+*.*~
+composer.phar

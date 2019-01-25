@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap-theme.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>    
+  </head>
+  <body style="padding-top: 95px">
+
+    <div class="container">
+      <div class="row">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top justify-content-between">
+          <a class="navbar-brand" href="{{ path_for('home') }}">Asthma Diary</a>
+          {% block links %}
+          {% endblock %}
+        </nav>
+      </div>
+    </div>
+    
+    <!-- content area -->
+    <div class="container">
+    {% block content %}
+      <div class="card-deck">
+        <div class="card" style="text-align: center">
+          <div class="card-header bg-primary text-white">Add data</div>
+          <div class="card-body">
+            <p class="card-text">Add a new peak flow meter reading.</p>
+            <a href="{{ path_for('save') }}" class="btn btn-primary btn-lg">Go</a>
+          </div>
+        </div>
+        <div class="card" style="text-align: center">
+          <div class="card-header bg-primary text-white">View data</div>
+          <div class="card-body">
+            <p class="card-text">View reports and visualizations of previous peak flow meter readings.</p>
+            <a href="{{ path_for('list') }}" class="btn btn-primary btn-lg">Go</a>
+          </div>
+        </div>
+      </div>
+    {% endblock %}
+    </div>        
+    <!-- content area ends-->
+      
+    <!-- footer -->
+    <div class="container">
+      <p align="center">
+        <a href="{{ path_for('legal') }}">Legal notices</a>
+      </p>
+    </div>        
+    <!-- footer ends -->
+
+     
+  </body>
+</html>

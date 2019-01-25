@@ -1,0 +1,8 @@
+---
+applications:
+- name: asthma-tracker-[initials]
+memory: 256M
+instances: 1
+host: asthma-tracker-[initials]
+buildpack: https://github.com/cloudfoundry/php-buildpack.git
+stack: cflinuxfs2
